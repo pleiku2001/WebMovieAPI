@@ -14,17 +14,30 @@ import SIdeBar from "../components/SIdeBar";
 
 const Main = styled.div`
   /* position: relative; */
+  overflow-x: none;
   background-color: #081b27;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Container = styled.div`
   width: 100%;
+  overflow-x: none;
+
+  color: white;
+
+
   background-color: #081b27;
   /* background-color: red; */
+
   min-height: 200vh;
   color: white;
   padding: 20vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   /* justify-content: space-around; */
 
@@ -52,13 +65,20 @@ const Styles2 = styled.img`
   /* margin-top: 20vh; */
 `;
 const Content = styled.div`
-  flex: 3;
+ overflow-x: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  /* flex: 3; */
   /* background-color: red; */
-  padding: 5vh;
+  /* opacity: 0.8; */
+  padding: 1vh;
   z-index: 2;
 `;
 const Infomation = styled.div`
   display: flex;
+  padding: 5px ;
 `;
 
 const Img = styled.img`
@@ -74,6 +94,7 @@ const Info = styled.div`
 const Title = styled.div`
   font-size: 5vh;
   font-weight: bold;
+
 `;
 const Cate = styled.div`
   /* margin-top: 20px ; */
@@ -105,11 +126,11 @@ const Button = styled.button`
 const Detail = styled.div`
   /* width: 80%; */
   margin-top: 50px;
-
+  margin-left: 5px;
   word-wrap: break-word;
   line-height: 23px;
   -webkit-text-size-adjust: 100%;
-  color: #666;
+  color: white;
   font-family: Roboto, sans-serif;
 `;
 const Review = styled.div`
@@ -120,6 +141,7 @@ const Review = styled.div`
   /* margin-top: 10px ; */
 `;
 const ErrorPage = styled.div`
+z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -145,13 +167,15 @@ const TurnBack = styled.button`
 `;
 // backdrop_path
 const Layout = styled.img`
-  background-color: red;
-  width: 500px;
+  opacity: 0.3;
+  width: 100%;
   position: absolute;
-  top: 190px;
-  right: 50px;
+  top: 80px;
+  left: 0;
+  /* top: 190px; */
+  /* right: 50px; */
   /* height: 300px; */
-  /* z-index: 0; */
+  z-index: 0;
 `;
 
 /* suggestion */
@@ -207,11 +231,12 @@ const NameFilm = styled.div`
   padding: 5px;
 `;
 const Liked = styled.div`
-   color: white;
+  color: white;
   margin-left: 170px;
   margin-bottom: 30px;
   font-size: 40px;
-`
+  margin:  50px auto;
+`;
 
 function SinglePage() {
   const [data, setData] = useState();
@@ -221,10 +246,12 @@ function SinglePage() {
   const param = useParams();
   const imgLink = "https://image.tmdb.org/t/p/w500/";
   const navigate = useNavigate();
+  const [ImgLayout,setImgLayout] = useState('')
+
   const handleClick = () => {
     navigate("/");
   };
- 
+
   useEffect(() => {
     window.scrollTo(0, 0);
     // window.onload()
@@ -236,8 +263,10 @@ function SinglePage() {
         `https://api.themoviedb.org/3/movie/${param.movieId}?api_key=3bf3a3b00cb251027bb7566559b066c1&language=en-US`
       )
       .then((res) => {
-        // console.log(res?.data);
         setData(res?.data);
+
+        console.log(res?.data?.backdrop_path)
+        // console.log(ImgLayout);
       })
       .catch((error) => {
         // console.log(error);
@@ -281,7 +310,7 @@ function SinglePage() {
   return (
     <Main>
       <Header />
-      <Container>
+      <Container ImgLayout={ImgLayout}>
         <Layout src={imgLink + data?.backdrop_path}></Layout>
         {err ? (
           <ErrorPage>
@@ -305,7 +334,7 @@ function SinglePage() {
                 })}
                 <Btn>
                   <Button>Trailer</Button>
-                  <Button>Play</Button>
+                  {/* <Button>Play</Button> */}
                 </Btn>
               </Info>
             </Infomation>
@@ -319,8 +348,8 @@ function SinglePage() {
                   <Review>{e?.name}</Review>
                   <iframe
                     key={e?.key}
-                    width="700"
-                    height="355"
+                    width="475"
+                    height="335"
                     src={"https://www.youtube.com/embed/" + e?.key}
                     title="video"
                     frameborder="0"
@@ -338,7 +367,7 @@ function SinglePage() {
           return (
             <MoviesList key={e.id}>
               <Movie src={imgLink + e?.poster_path} />
-              <NameMovie to={"/movie/" + e.id} >
+              <NameMovie to={"/movie/" + e.id}>
                 <NameFilm>{e.title}</NameFilm>
               </NameMovie>
             </MoviesList>

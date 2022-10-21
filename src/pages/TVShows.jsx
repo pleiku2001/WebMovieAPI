@@ -15,10 +15,22 @@ import Stack from "@mui/material/Stack";
 
 const Main = styled.div`
   position: relative;
+  
+  background-color: #081b27;
 `;
 
 const Container = styled.div`
   width: 100%;
+
+ 
+  color: white;
+  background-image: linear-gradient(180deg, #132a37cc, #132a37cc),
+    url("https://images.unsplash.com/photo-1569003339405-ea396a5a8a90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
   background-color: #081b27;
   min-height: 250vh;
   color: white;
@@ -26,7 +38,13 @@ const Container = styled.div`
   /* padding-top: 20vh; */
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
+  @media only screen and (max-width: 1320px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+}
 `;
 const Title = styled.div`
   margin: 20px;
@@ -37,6 +55,7 @@ const Title = styled.div`
 const Films = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 const Film = styled.div`
   position: relative;
@@ -96,13 +115,6 @@ const StackNigate = styled.div`
 function TVShows() {
     const [data, setData] = useState([]);
  
-    const [page, setPage] = useState(1);
-    const handleChange = (event, value) => {
-      setPage(value);
-      window.scrollTo(0, 0);
-    };
-
-
   const imgLink = "https://image.tmdb.org/t/p/w500/";
   const param = useParams();
   useEffect(() => {
@@ -110,14 +122,21 @@ function TVShows() {
   }, [param]);
 
  
+  const [page, setPage] = useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+    window.scrollTo(0, 0);
+  };
+
 
   useEffect(() => {
     axios
       .get(
+        
         `https://api.themoviedb.org/3/tv/airing_today?api_key=3bf3a3b00cb251027bb7566559b066c1&language=en-US&page=${page}`
-      )
+        )
       .then((res) => {
-        // console.log(res?.data?.results);
+        console.log(res?.data?.results);
 
         setData(res?.data?.results);
       })
@@ -129,14 +148,14 @@ function TVShows() {
     <Main>
       <Header />
       <Container>
-      <Title>NEW TVSHOWS</Title>
+      <Title>TV SHOWS </Title>
        
         <Films>
           {data?.map((e) => {
             return (
               <Film>
-                <Img src={imgLink + e?.poster_path} alt={e?.name} ></Img>
-                <Number>{e.vote_average}</Number>
+                <Img src={imgLink + e.poster_path} ></Img>
+                <Number>{e.vote_average.toFixed(2)}</Number>
                 <Name to={"/tv/"+ e.id} cate={e?.media_type}>
                   <NameLink>{e.title || e.name}</NameLink>
                 </Name>
@@ -154,12 +173,10 @@ function TVShows() {
             );
           })}
         </Films>
-        
 
       </Container>
-
-      <StackNigate>
-          <Stack spacing={2}>
+        <StackNigate style={{ 'borderRadius': '5px','width': '50%', 'margin': '0 auto'}}>
+          <Stack spacing={2} >
             {/* <Typography>Page: {page}</Typography> */}
             <Pagination
               color="primary"
@@ -175,3 +192,6 @@ function TVShows() {
 }
 
 export default TVShows;
+
+
+

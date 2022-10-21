@@ -125,7 +125,7 @@ function SIdeBar() {
               <List key={e.id}>
                 <Picture>
                   <Img src={imgLink + e.poster_path} />
-                  <Start>{e.vote_average}</Start>
+                  <Start>{e.vote_average.toFixed(2)}</Start>
                 </Picture>
                 <Name to={"/movie/"+e.id}>{e.title}</Name>
                 
@@ -153,7 +153,7 @@ function SIdeBar() {
       </Content>
       {/*  */}
       <Content>
-        <Title>Upcomming</Title>
+        <Title>Upcoming</Title>
         <Lists>
         {data2?.map((e) => {
             return (

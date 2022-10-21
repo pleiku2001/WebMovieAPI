@@ -10,17 +10,27 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import CateLink from "../components/CateLink";
 
-
-
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
 const Main = styled.div`
   position: relative;
+  
+  background-color: #081b27;
 `;
 
 const Container = styled.div`
   width: 100%;
+
+ 
+  color: white;
+  background-image: linear-gradient(180deg, #132a37cc, #132a37cc),
+    url("https://images.unsplash.com/photo-1562398766-0f40f880a33a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=470&q=80");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
   background-color: #081b27;
   min-height: 250vh;
   color: white;
@@ -28,7 +38,13 @@ const Container = styled.div`
   /* padding-top: 20vh; */
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
+  @media only screen and (max-width: 1320px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+}
 `;
 const Title = styled.div`
   margin: 20px;
@@ -39,6 +55,7 @@ const Title = styled.div`
 const Films = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 const Film = styled.div`
   position: relative;
@@ -98,12 +115,6 @@ const StackNigate = styled.div`
 function TopRated() {
     const [data, setData] = useState([]);
  
-    const [page, setPage] = useState(1);
-    const handleChange = (event, value) => {
-      setPage(value);
-      window.scrollTo(0, 0);
-    };
-
   const imgLink = "https://image.tmdb.org/t/p/w500/";
   const param = useParams();
   useEffect(() => {
@@ -111,13 +122,18 @@ function TopRated() {
   }, [param]);
 
  
+  const [page, setPage] = useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+    window.scrollTo(0, 0);
+  };
+
 
   useEffect(() => {
     axios
       .get(
-        // "https://api.themoviedb.org/3/tv/airing_today?api_key=3bf3a3b00cb251027bb7566559b066c1&language=en-US&page=1"
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=3bf3a3b00cb251027bb7566559b066c1&language=en-US&page=${page}`
-      )
+        
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=3bf3a3b00cb251027bb7566559b066c1&language=en-US&page=${page}`      )
       .then((res) => {
         // console.log(res?.data?.results);
 
@@ -131,14 +147,14 @@ function TopRated() {
     <Main>
       <Header />
       <Container>
-      <Title>TOP RATED</Title>
+      <Title>TOP RATED MOVIES</Title>
        
         <Films>
           {data?.map((e) => {
             return (
               <Film>
                 <Img src={imgLink + e.poster_path} ></Img>
-                <Number>{e.vote_average}</Number>
+                <Number>{e.vote_average.toFixed(2)}</Number>
                 <Name to={"/movie/"+ e.id} cate={e?.media_type}>
                   <NameLink>{e.title || e.name}</NameLink>
                 </Name>
@@ -156,11 +172,10 @@ function TopRated() {
             );
           })}
         </Films>
-        
 
       </Container>
-      <StackNigate>
-          <Stack spacing={2}>
+        <StackNigate style={{ 'borderRadius': '5px','width': '50%', 'margin': '0 auto'}}>
+          <Stack spacing={2} >
             {/* <Typography>Page: {page}</Typography> */}
             <Pagination
               color="primary"
@@ -176,3 +191,5 @@ function TopRated() {
 }
 
 export default TopRated;
+
+

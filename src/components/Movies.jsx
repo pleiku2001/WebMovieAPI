@@ -23,6 +23,7 @@ const Title = styled.div`
 const Films = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: start;
 `;
 const Film = styled.div`
   position: relative;
@@ -122,7 +123,7 @@ function Movies() {
             return (
               <Film>
                 <Img src={imgLink + e.poster_path}></Img>
-                <Number>{e.vote_average}</Number>
+                <Number>{e.vote_average.toFixed(2)}</Number>
                 {e?.media_type === "movie" ? (
                   <Name
                     to={"/" + e?.media_type + "/" + e.id}
