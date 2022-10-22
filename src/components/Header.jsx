@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import film from "../assets/popcorn.png";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+
 import { BiAlignLeft } from "react-icons/bi";
 import { BiLabel } from "react-icons/bi";
 
@@ -99,8 +99,8 @@ function Header() {
         <Img src={film} alt="dfs" />
       </LinkCate>
       <BtnIcon onClick={handleOpen} open={open}>
-        {/* <FormatListBulletedIcon/> */}
-        {/* <h1>hello</h1> */}
+       
+     
         <BiAlignLeft
           style={{ fontSize: "30px", cursor: "pointer", color: "yellow" }}
         />
