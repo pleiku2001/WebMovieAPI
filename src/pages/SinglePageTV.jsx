@@ -314,7 +314,7 @@ function SinglePageTV() {
     <Main>
       <Header />
       <Container>
-        <Layout src={imgLink + data?.backdrop_path || ''}></Layout>
+        <Layout src={imgLink + data?.backdrop_path }></Layout>
         {err ? (
           <ErrorPage>
             <Error>Not Find Page</Error>
