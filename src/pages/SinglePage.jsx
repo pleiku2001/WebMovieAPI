@@ -176,6 +176,7 @@ const Layout = styled.img`
   /* right: 50px; */
   /* height: 300px; */
   z-index: 0;
+  
 `;
 
 /* suggestion */
@@ -311,7 +312,7 @@ function SinglePage() {
     <Main>
       <Header />
       <Container ImgLayout={ImgLayout}>
-        <Layout src={imgLink + data?.backdrop_path}></Layout>
+        <Layout src={imgLink + data?.backdrop_path}/>
         {err ? (
           <ErrorPage>
             <Error>Not Find Page</Error>

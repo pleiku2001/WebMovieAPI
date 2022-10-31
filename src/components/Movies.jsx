@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
@@ -81,11 +81,43 @@ const StackNigate = styled.div`
   border-radius: 10px;
   text-align: center;
 `;
+const CoverInput = styled.div`
+  width: 100%;
+  /* background-color: red; */
+  height: 50px;
+  margin-top: 20px;
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+`;
+const Input = styled.input`
+  flex: 3;
+  border: 2px solid  #f1b722;
+  border-radius: 5px;
+  padding-left: 5px;
+  background-color: black;
+  color:  #f1b722;
+`;
+const BtnInput = styled.button`
+  border: 2px solid  #f1b722;
+  background-color: black;
+  border-radius: 5px;
+  flex: 1;
+  color:  #f1b722;
+  font-size: 20px;
+  font-weight: bold;
+  &:hover{
+    border-color: red;
+    color: red;
+    cursor: pointer;
+  }
+`;
 
 function Movies() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [countPage, setCountPage] = useState();
+  const navigate = useNavigate()
   const handleChange = (event, value) => {
     setPage(value);
     window.scrollTo(0, 0);
@@ -114,9 +146,18 @@ function Movies() {
   // console.log(cate);
   // cate.filter
   // console.log(cate?.filter(g => g.id > 28)[0].name)
+  const [search, setSearch] = useState([]);
+  const Submit = (e) => {
+    e.preventDefault();
+    navigate(`/search/${search}`)
+  };
   return (
     <>
       <Container>
+        <CoverInput>
+          <Input onChange={(e) => setSearch(e.target.value)} placeholder="Search movies ..."/>
+          <BtnInput onClick={Submit}>Search</BtnInput>
+        </CoverInput>
         <Title>TRENDING MOVIES</Title>
         <Films>
           {data?.map((e) => {

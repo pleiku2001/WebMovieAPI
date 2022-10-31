@@ -9,11 +9,13 @@ import PopularMovies from "./pages/PopularMovies";
 import PopularTV from "./pages/PopularTV";
 import TopRated from "./pages/TopRated";
 import Test from "./pages/Test";
+import Search from "./pages/Search";
 function App() {
   return (
     <Routes>
       <Route index path="/" element={<Home />}/>
-      <Route  path="/test" element={<Test />}/>
+      <Route  path="/test/:name" element={<Test />}/>
+      <Route  path="/search/:name" element={<Search />}/>
       <Route element={<SinglePage />} path="/movie/:movieId"/>
       <Route element={<SinglePageTV />} path="/tv/:movieId"/>
       <Route element={<Movie />} path="/newMovies"/>

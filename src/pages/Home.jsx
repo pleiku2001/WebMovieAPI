@@ -1,5 +1,5 @@
 import { style } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -27,7 +27,6 @@ const Container = styled.div`
   padding: 20vh;
   display: flex;
   @media only screen and (min-width: 768px) {
-
   }
 `;
 
@@ -36,11 +35,9 @@ const Right = styled.div`
   flex: 4;
   /* background-color: red; */
   @media only screen and (max-width: 1259px) {
-
     /* flex: 5; */
     width: 100%;
     /* background-color: red; */
-
   }
 `;
 const Left = styled.div`
@@ -48,15 +45,17 @@ const Left = styled.div`
   @media only screen and (max-width: 1259px) {
     visibility: hidden;
     display: none;
-
   }
   /* background-color: blue; */
 `;
 
+
 function Home() {
+
   return (
     <Main>
       <Header />
+     
       <Container>
         <Right>
           <Movies />
